@@ -64,3 +64,48 @@ Database changed
 MariaDB [movies]> GRANT USAGE ON *.* TO 'adm_movies'@localhost IDENTIFIED BY '####';
 Query OK, 0 rows affected (0.003 sec)
 ```
+
+### Create DB
+
+```buildoutcfg
+create column table links(
+  movieid integer not null,
+  imdbid  integer,
+  tmdbid  integer,
+  primary key (
+    movieid
+  )
+);
+
+create column table movies(
+  movieid integer not null,
+  title   nvarchar(255),
+  genres  nvarchar(255),
+  primary key (
+    movieid
+  )
+);
+
+create column table ratings(
+  userid    integer not null,
+  movieid   integer not null,
+  rating    decimal,
+  timestamp integer,
+  primary key (
+    userid,
+    movieid
+  )
+);
+
+create column table tags(
+  userid    integer not null,
+  movieid   integer not null,
+  tag       nvarchar(255)  not null,
+  timestamp integer,
+  primary key (
+    userid,
+    movieid,
+    tag
+  )
+);
+```
