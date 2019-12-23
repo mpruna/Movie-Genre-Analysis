@@ -1,5 +1,13 @@
 # Determine movie Ratings based on genre
 
+### Project Steps
+
+- [ ] Develop movies DB locally
+- [ ] Analyze the Dataset
+- [ ] Choose **ML-Algorithm** & provide an answer
+- [ ] Move all to cloud
+
+
 ### Architecture constraints
 
 * Will use an SQL DB in the cloud for example AWS
