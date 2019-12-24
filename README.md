@@ -8,6 +8,23 @@
 - [ ] Move all to cloud
 
 
+### Project Structure
+
+```buildoutcfg
+├── datasets
+│   ├── genome-scores.csv
+│   ├── genome-tags.csv
+│   ├── links.csv
+│   ├── movies.csv
+│   ├── moviesDB.sql
+│   ├── moviesDB.sql.tar.gz
+│   ├── ratings.csv
+│   └── tags.csv
+├── README_Dataset.txt
+├── README.md
+└── read_movies_data.ipynb
+```
+
 ### Architecture constraints
 
 * Will use an SQL DB in the cloud for example AWS
@@ -67,8 +84,14 @@ Query OK, 0 rows affected (0.003 sec)
 
 ### Create DB
 
+We can either create a DB using a python script or mysql shell.
+After DB creation we can import the records from *.csv using mysql utility or by using pandas dataframe with
+sqlalchemy.
+
+### Create tables 
+
 ```buildoutcfg
-create column table links(
+create table links(
   movieid integer not null,
   imdbid  integer,
   tmdbid  integer,
@@ -77,7 +100,7 @@ create column table links(
   )
 );
 
-create column table movies(
+create  table movies(
   movieid integer not null,
   title   nvarchar(255),
   genres  nvarchar(255),
@@ -86,7 +109,7 @@ create column table movies(
   )
 );
 
-create column table ratings(
+create  table ratings(
   userid    integer not null,
   movieid   integer not null,
   rating    decimal,
@@ -97,7 +120,7 @@ create column table ratings(
   )
 );
 
-create column table tags(
+create  table tags(
   userid    integer not null,
   movieid   integer not null,
   tag       nvarchar(255)  not null,
@@ -108,4 +131,24 @@ create column table tags(
     tag
   )
 );
+```
+
+### Load data INFILE
+
+```buildoutcfg
+LOAD DATA LOCAL INFILE '/home/Github/Movie-Genre-Analysis/datasets/ratings.csv' 
+    -> INTO TABLE ratings
+    -> FIELDS TERMINATED BY ',' 
+    -> LINES TERMINATED BY '\n'
+    -> IGNORE 1 ROWS;
+Query OK, 25000095 rows affected, 65535 warnings (7 min 23.100 sec)
+Records: 25000095
+
+LOAD DATA LOCAL INFILE '/home/Github/Movie-Genre-Analysis/datasets/tags.csv' 
+    -> INTO TABLE tags
+    -> FIELDS TERMINATED BY ',' 
+    -> LINES TERMINATED BY '\n'
+    -> IGNORE 1 ROWS;
+Query OK, 1093358 rows affected, 65535 warnings (9.028 sec)
+Records: 1093360  Deleted: 0  Skipped: 2  Warnings: 1093853
 ```
