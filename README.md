@@ -158,4 +158,6 @@ Records: 1093360  Deleted: 0  Skipped: 2  Warnings: 1093853
 - [x] Create DB with SQL schema. There are not index references atm
 - [ ] Small issue with reference constraint between **tags/movies/user** tables. Probably I have to setup tags table as a **"join/cross table"**
 
+### DB Schema
 
+[IMG](Images/db_schema.png)
