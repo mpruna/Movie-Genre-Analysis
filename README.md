@@ -160,4 +160,5 @@ Records: 1093360  Deleted: 0  Skipped: 2  Warnings: 1093853
 
 ### DB Schema
 
-[IMG](Images/db_schema.png)
+![IMG](Images/db_schema.png)
+
