@@ -20,6 +20,9 @@
 │   ├── moviesDB.sql.tar.gz
 │   ├── ratings.csv
 │   └── tags.csv
+├── Images
+│   └── db_schema.png
+├── movies_schema.sql
 ├── README_Dataset.txt
 ├── README.md
 └── read_movies_data.ipynb
@@ -162,3 +165,12 @@ Records: 1093360  Deleted: 0  Skipped: 2  Warnings: 1093853
 
 ![IMG](Images/db_schema.png)
 
+Current sql DB schema constraints
+
+```
+ CONSTRAINT `genres_movies_ibfk_1` FOREIGN KEY (`movie_id`) REFERENCES `movies` (`id`),
+ CONSTRAINT `genres_movies_ibfk_2` FOREIGN KEY (`genre_id`) REFERENCES `genres` (`id`)
+ CONSTRAINT `ratings_ibfk_1` FOREIGN KEY (`movie_id`) REFERENCES `movies` (`id`),
+ CONSTRAINT `ratings_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
+ CONSTRAINT `users_ibfk_1` FOREIGN KEY (`occupation_id`) REFERENCES `occupations` (`id`)
+```
