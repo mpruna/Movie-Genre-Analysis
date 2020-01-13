@@ -91,49 +91,90 @@ We can either create a DB using a python script or mysql shell.
 After DB creation we can import the records from *.csv using mysql utility or by using pandas dataframe with
 sqlalchemy.
 
-### Create tables 
+### Table description
 
-```buildoutcfg
-create table links(
-  movieid integer not null,
-  imdbid  integer,
-  tmdbid  integer,
-  primary key (
-    movieid
-  )
-);
+```
+show create table movies;
++--------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table  | Create Table                                                                                                                                                                                                                             |
++--------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| movies | CREATE TABLE `movies` (
+  `movieid` int(11) NOT NULL,
+  `title` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
+  `genres` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
+  PRIMARY KEY (`movieid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 |
++--------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.000 sec)
 
-create  table movies(
-  movieid integer not null,
-  title   nvarchar(255),
-  genres  nvarchar(255),
-  primary key (
-    movieid
-  )
-);
 
-create  table ratings(
-  userid    integer not null,
-  movieid   integer not null,
-  rating    decimal,
-  timestamp integer,
-  primary key (
-    userid,
-    movieid
-  )
-);
+show create table ratings;
++---------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table   | Create Table                                                                                                                                                                                                                              |
++---------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| ratings | CREATE TABLE `ratings` (
+  `userid` int(11) NOT NULL,
+  `movieid` int(11) NOT NULL,
+  `rating` decimal(10,0) DEFAULT NULL,
+  `timestamp` int(11) DEFAULT NULL,
+  PRIMARY KEY (`userid`,`movieid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 |
++---------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.000 sec)
 
-create  table tags(
-  userid    integer not null,
-  movieid   integer not null,
-  tag       nvarchar(255)  not null,
-  timestamp integer,
-  primary key (
-    userid,
-    movieid,
-    tag
-  )
-);
+
+show create table tags;
++-------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table | Create Table                                                                                                                                                                                                                                            |
++-------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| tags  | CREATE TABLE `tags` (
+  `userid` int(11) NOT NULL,
+  `movieid` int(11) NOT NULL,
+  `tag` varchar(255) CHARACTER SET utf8 NOT NULL,
+  `timestamp` int(11) DEFAULT NULL,
+  PRIMARY KEY (`userid`,`movieid`,`tag`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 |
++-------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.000 sec)
+
+
+show create table links;
++-------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table | Create Table                                                                                                                                                                             |
++-------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| links | CREATE TABLE `links` (
+  `movieid` int(11) NOT NULL,
+  `imdbid` int(11) DEFAULT NULL,
+  `tmdbid` int(11) DEFAULT NULL,
+  PRIMARY KEY (`movieid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 |
++-------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.000 sec)
+
+show create table genome_scores;
++---------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table         | Create Table                                                                                                                                                                                     |
++---------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| genome_scores | CREATE TABLE `genome_scores` (
+  `movieId` int(11) NOT NULL,
+  `tagId` int(11) NOT NULL,
+  `relevance` float NOT NULL,
+  PRIMARY KEY (`movieId`,`tagId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 |
++---------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.000 sec)
+
+show create table genome_tags;
++-------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table       | Create Table                                                                                                                                                                   |
++-------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| genome_tags | CREATE TABLE `genome_tags` (
+  `tagId` int(11) NOT NULL,
+  `tag` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
+  PRIMARY KEY (`tagId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 |
++-------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.000 sec)
 ```
 
 ### Load data INFILE
@@ -160,17 +201,3 @@ Records: 1093360  Deleted: 0  Skipped: 2  Warnings: 1093853
 
 - [x] Create DB with SQL schema. There are not index references atm
 - [ ] Small issue with reference constraint between **tags/movies/user** tables. Probably I have to setup tags table as a **"join/cross table"**
-
-### DB Schema
-
-![IMG](Images/db_schema.png)
-
-Current sql DB schema constraints
-
-```
- CONSTRAINT `genres_movies_ibfk_1` FOREIGN KEY (`movie_id`) REFERENCES `movies` (`id`),
- CONSTRAINT `genres_movies_ibfk_2` FOREIGN KEY (`genre_id`) REFERENCES `genres` (`id`)
- CONSTRAINT `ratings_ibfk_1` FOREIGN KEY (`movie_id`) REFERENCES `movies` (`id`),
- CONSTRAINT `ratings_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
- CONSTRAINT `users_ibfk_1` FOREIGN KEY (`occupation_id`) REFERENCES `occupations` (`id`)
-```
