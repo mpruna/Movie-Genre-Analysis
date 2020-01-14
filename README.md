@@ -197,7 +197,101 @@ Query OK, 1093358 rows affected, 65535 warnings (9.028 sec)
 Records: 1093360  Deleted: 0  Skipped: 2  Warnings: 1093853
 ```
 
-### To Dos
+# SQL Analysis
 
-- [x] Create DB with SQL schema. There are not index references atm
-- [ ] Small issue with reference constraint between **tags/movies/user** tables. Probably I have to setup tags table as a **"join/cross table"**
+Analysis by review number and genres. I will count the number of reviews and group them by genres; I will also limit the result to 30.
+
+```dtd
+MariaDB [movies]> select  count(*) as gen_count, genres from movies group by genres order by gen_count DESC limit 30\G; 
+*************************** 1. row ***************************
+gen_count: 7782
+   genres: Drama
+*************************** 2. row ***************************
+gen_count: 5044
+   genres: Comedy
+*************************** 3. row ***************************
+gen_count: 4913
+   genres: (no genres listed)
+*************************** 4. row ***************************
+gen_count: 4304
+   genres: Documentary
+*************************** 5. row ***************************
+gen_count: 2066
+   genres: Comedy|Drama
+*************************** 6. row ***************************
+gen_count: 1856
+   genres: Drama|Romance
+*************************** 7. row ***************************
+gen_count: 1517
+   genres: Horror
+*************************** 8. row ***************************
+gen_count: 1394
+   genres: Comedy|Romance
+*************************** 9. row ***************************
+gen_count: 899
+   genres: Comedy|Drama|Romance
+*************************** 10. row ***************************
+gen_count: 845
+   genres: Thriller
+*************************** 11. row ***************************
+gen_count: 813
+   genres: Drama|Thriller
+*************************** 12. row ***************************
+gen_count: 795
+   genres: Crime|Drama
+*************************** 13. row ***************************
+gen_count: 765
+   genres: Horror|Thriller
+*************************** 14. row ***************************
+gen_count: 709
+   genres: Animation
+*************************** 15. row ***************************
+gen_count: 542
+   genres: Drama|War
+*************************** 16. row ***************************
+gen_count: 525
+   genres: Action
+*************************** 17. row ***************************
+gen_count: 502
+   genres: Action|Drama
+*************************** 18. row ***************************
+gen_count: 486
+   genres: Western
+*************************** 19. row ***************************
+gen_count: 433
+   genres: Crime|Drama|Thriller
+*************************** 20. row ***************************
+gen_count: 408
+   genres: Action|Thriller
+*************************** 21. row ***************************
+gen_count: 349
+   genres: Comedy|Horror
+*************************** 22. row ***************************
+gen_count: 347
+   genres: Sci-Fi
+*************************** 23. row ***************************
+gen_count: 334
+   genres: Action|Comedy
+*************************** 24. row ***************************
+gen_count: 282
+   genres: Horror|Sci-Fi
+*************************** 25. row ***************************
+gen_count: 268
+   genres: Children|Drama
+*************************** 26. row ***************************
+gen_count: 263
+   genres: Romance
+*************************** 27. row ***************************
+gen_count: 262
+   genres: Animation|Children
+*************************** 28. row ***************************
+gen_count: 237
+   genres: Comedy|Crime
+*************************** 29. row ***************************
+gen_count: 237
+   genres: Action|Crime|Thriller
+*************************** 30. row ***************************
+gen_count: 236
+   genres: Children|Comedy
+30 rows in set (0.000 sec)
+```
