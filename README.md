@@ -201,8 +201,8 @@ Records: 1093360  Deleted: 0  Skipped: 2  Warnings: 1093853
 
 Analysis by review number and genres. I will count the number of reviews and group them by genres; I will also limit the result to 30.
 
-```dtd
-MariaDB [movies]> select  count(*) as gen_count, genres from movies group by genres order by gen_count DESC limit 30\G; 
+```
+MariaDB [movies]> select  count(*) as gen_count, genres from movies group by genres order by gen_count DESC limit 10\G; 
 *************************** 1. row ***************************
 gen_count: 7782
    genres: Drama
@@ -233,65 +233,9 @@ gen_count: 899
 *************************** 10. row ***************************
 gen_count: 845
    genres: Thriller
-*************************** 11. row ***************************
-gen_count: 813
-   genres: Drama|Thriller
-*************************** 12. row ***************************
-gen_count: 795
-   genres: Crime|Drama
-*************************** 13. row ***************************
-gen_count: 765
-   genres: Horror|Thriller
-*************************** 14. row ***************************
-gen_count: 709
-   genres: Animation
-*************************** 15. row ***************************
-gen_count: 542
-   genres: Drama|War
-*************************** 16. row ***************************
-gen_count: 525
-   genres: Action
-*************************** 17. row ***************************
-gen_count: 502
-   genres: Action|Drama
-*************************** 18. row ***************************
-gen_count: 486
-   genres: Western
-*************************** 19. row ***************************
-gen_count: 433
-   genres: Crime|Drama|Thriller
-*************************** 20. row ***************************
-gen_count: 408
-   genres: Action|Thriller
-*************************** 21. row ***************************
-gen_count: 349
-   genres: Comedy|Horror
-*************************** 22. row ***************************
-gen_count: 347
-   genres: Sci-Fi
-*************************** 23. row ***************************
-gen_count: 334
-   genres: Action|Comedy
-*************************** 24. row ***************************
-gen_count: 282
-   genres: Horror|Sci-Fi
-*************************** 25. row ***************************
-gen_count: 268
-   genres: Children|Drama
-*************************** 26. row ***************************
-gen_count: 263
-   genres: Romance
-*************************** 27. row ***************************
-gen_count: 262
-   genres: Animation|Children
-*************************** 28. row ***************************
-gen_count: 237
-   genres: Comedy|Crime
-*************************** 29. row ***************************
-gen_count: 237
-   genres: Action|Crime|Thriller
-*************************** 30. row ***************************
-gen_count: 236
-   genres: Children|Comedy
-30 rows in set (0.000 sec)
+10 rows in set (0.128 sec)
+
+ERROR: No query specified
+
+MariaDB [movies]> 
 ```
