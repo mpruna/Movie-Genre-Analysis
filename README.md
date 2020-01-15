@@ -1,5 +1,10 @@
 # Determine movie Ratings based on genre
 
+If I would have to guess, movies that trigger high emotion, or related to comedy are likely to generate interest.
+By interest I mean review count/and possibly if movie is good a high score.
+At the current moment, although subject to change, a **ML classifier** could be appropriate for this dataset,
+Possibly something that predict the review count/rating of a movie based on genre. 
+
 ### Project Steps
 
 - [ ] Develop movies DB locally
@@ -238,4 +243,48 @@ gen_count: 845
 ERROR: No query specified
 
 MariaDB [movies]> 
+```
+
+### Top 5 ratings
+
+```
+MariaDB [movies]> select * from ratings limit 5;
++--------+---------+--------+------------+
+| userid | movieid | rating | timestamp  |
++--------+---------+--------+------------+
+|      1 |     296 |      5 | 1147880044 |
+|      1 |     306 |      4 | 1147868817 |
+|      1 |     307 |      5 | 1147868828 |
+|      1 |     665 |      5 | 1147878820 |
+|      1 |     899 |      4 | 1147868510 |
++--------+---------+--------+------------+
+5 rows in set (0.015 sec)
+``` 
+
+### Average rating
+
+```dtd
+MariaDB [movies]> select avg (rating) from ratings;
++--------------+
+| avg (rating) |
++--------------+
+|       3.6825 |
++--------------+
+1 row in set (11.982 sec)
+```
+
+### Counting ratings
+
+```dtd
+select rating, count(rating) from ratings group by rating order by rating DESC;
++--------+---------------+
+| rating | count(rating) |
++--------+---------------+
+|      5 |       5813013 |
+|      4 |       9817116 |
+|      3 |       6159725 |
+|      2 |       2040358 |
+|      1 |       1169883 |
++--------+---------------+
+5 rows in set (10.147 sec)
 ```
