@@ -1,9 +1,6 @@
 # Determine movie Ratings based on genre
 
-If I would have to guess, movies that trigger high emotion, or related to comedy are likely to generate interest.
-By interest I mean review count/and possibly if movie is good a high score.
-At the current moment, although subject to change, a **ML classifier** could be appropriate for this dataset,
-Possibly something that predict the review count/rating of a movie based on genre. 
+If I would have to guess, movies that trigger high emotion, or are related to comedy are likely to generate interest. By interest, I mean large review count/and possibly if the film is good a high score. At the current moment, although subject to change, an **ML classifier** could be appropriate for this dataset, possibly something that predicts the review count/rating of a movie based on genre.
 
 ### Project Steps
 
