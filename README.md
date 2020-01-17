@@ -285,3 +285,33 @@ select rating, count(rating) from ratings group by rating order by rating DESC;
 +--------+---------------+
 5 rows in set (10.147 sec)
 ```
+
+### Ratings percent
+
+```dtd
+SELECT rating, concat(round(count(*) *100/(SELECT count( * ) FROM ratings)) ,  "%") AS ratings_percent FROM ratings GROUP BY rating;
++--------+-----------------+
+| rating | ratings_percent |
++--------+-----------------+
+|      1 | 5%              |
+|      2 | 8%              |
+|      3 | 25%             |
+|      4 | 39%             |
+|      5 | 23%             |
++--------+-----------------+
+5 rows in set (14.524 sec)
+```
+
+### Number of unique users rating movies
+
+```dtd
+MariaDB [movies]> select count(*) as total_records,count(distinct(userid)) as distinct_users from ratings;
++---------------+----------------+
+| total_records | distinct_users |
++---------------+----------------+
+|      25000095 |         162541 |
++---------------+----------------+
+1 row in set (0.000 sec)
+
+MariaDB [movies]> 
+```
